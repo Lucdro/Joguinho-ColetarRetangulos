@@ -1,3 +1,4 @@
+pause = false
 --window heigth
 wh = 0
 --window width
@@ -75,6 +76,14 @@ function boxcolision(x1,y1,w1,h1,x2,y2,w2,h2)
 end
 
 function love.update(dt)
+  if love.keyboard.isDown("return") then
+    pause = false
+  end
+  if love.keyboard.isDown("escape") then
+    pause = true
+  end
+  if pause then return end
+  
   if boxcooldown > boxcooldowmin then
     boxcooldown = boxcooldown - boxcdreduce * dt
   end
@@ -178,5 +187,7 @@ function love.draw()
   love.graphics.setBackgroundColor(bgc.r,bgc.g,bgc.b)
   
   love.graphics.print(player.points,0,0,0,3,3)
-
+  if pause then
+  love.graphics.print("Pausado, pressione enter para retornar!",0,40)
+  end
 end
